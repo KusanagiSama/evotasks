@@ -10,7 +10,6 @@
 	$botoes_adm = "";
 
 	$hoje = date("Y-m-d");
-	$hoje = "2023-06-19"; // teste, remover quando finalizado!!!!!!!!!!!!!!!!
 	$dia = date("j", strtotime($hoje));
 	$mes = date("n", strtotime($hoje));
 	$ano = date("Y", strtotime($hoje));

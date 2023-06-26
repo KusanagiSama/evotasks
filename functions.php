@@ -57,10 +57,30 @@ class ExtDOMDocument extends DOMDocument {
 	}
 }
 
-$c_servidor = "elysiumgames0.mysql.dbaas.com.br";
-$c_bancodedados = "elysiumgames0";
-$c_usuario = "elysiumgames0";
-$c_senha = "eG25-Sql03#20";
+// Busca as informações de conexão do BD em arquivo (maior segurança)
+$_servidor = "";
+$_bancodedados = "";
+$_usuario = "";
+$_senha = "";
+$arquivo = "bd.cfg";
+if ( file_exists($arquivo) ) {
+	$_arquivo = fopen($arquivo, "r");
+	$_conteudo = fread($_arquivo, filesize ($arquivo));
+	fclose ($_arquivo);
+	$_conteudo_split = explode("|", $_conteudo);
+	if ( count($_conteudo_split) == 4 ) {
+		$_servidor = $_conteudo_split[0];
+		$_bancodedados = $_conteudo_split[1];
+		$_usuario = $_conteudo_split[2];
+		$_senha = $_conteudo_split[3];
+	}
+}
+
+// Variáveis globais de configurações do aplicativo
+$c_servidor = $_servidor;
+$c_bancodedados = $_bancodedados;
+$c_usuario = $_usuario;
+$c_senha = $_senha;
 $c_email = "suporte@evovedigital.com.br";
 $c_empresa = "EvoTasks";
 $c_dominio = "www.evovedigital.com.br/projetos/evotasks";
@@ -269,7 +289,7 @@ function montar_cabecalho($pagina, $link) {
 	echo "<meta content='" . $og_dsc . "' name='twitter:description'></meta>";
 	echo "<link rel='stylesheet' href='css/reset.css' type='text/css'>";
 	//echo "<link rel='stylesheet' href='css/hamburgers.min.css'>"; // Hamburgers mobile menu
-	echo "<link rel='stylesheet' href='css/styles.css?v=1' type='text/css'>";
+	echo "<link rel='stylesheet' href='css/styles.css?v=2' type='text/css'>";
 	//echo "<link rel='shortcut icon' href='img/favicon.ico'>";
 	echo "<link rel='icon' href='img/ico-16.png' sizes='16x16'>";
 	echo "<link rel='icon' href='img/ico-32.png' sizes='32x32'>";
