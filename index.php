@@ -19,12 +19,13 @@
 		$semana_mes = $mes;
 		$semana_ano = $ano;
 	} else {
-		if ( ( $dia - ( $semana - 1 ) ) < $dia ) {
-			$semana_dia = $dia - ( $semana - 1 );
+		$diferenca = $dia - ( $semana - 1 );
+		if ( ( $diferenca < $dia ) && ( $diferenca >= 0 ) ) {
+			$semana_dia = $diferenca;
 			$semana_mes = $mes;
 			$semana_ano = $ano;
 		} else {
-			$semana_antes = date("Y-m-d");
+			$semana_antes =  new DateTime(date("Y-m-d"));
 			$semana_antes->sub(new DateInterval("P" . ( $semana - 1 ) . "D"));
 			$semana_dia = $semana_antes->format("d");
 			$semana_mes = $semana_antes->format("m");
